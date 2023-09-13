@@ -34,6 +34,10 @@ download_pdf_button.addEventListener("click", async function() {
     const options = {
         pagebreak: {mode: 'avoid-all'},
         filename: "Resume_Luuk_Perdaems.pdf",
+		html2canvas:  {
+			scale: 2,
+			windowWidth: 1200
+		}
     }
     html2pdf().set(options).from(elementHTML).save()
     console.log("Done generating pdf")
