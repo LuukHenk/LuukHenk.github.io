@@ -7,7 +7,7 @@
     --fs-h2: 1.6rem;
     --fs-h3: 1.2rem;
     --fs-body: 1rem;
-    --fs-small: 0.8rem;
+    --fs-small: 0.9rem;
 
     --color-background: #f7f7f7;
     --color-background-dark: #e7e7e7;
@@ -151,12 +151,13 @@ button {
 }
 .activity_skills {
     grid-area: skills;
+    margin-top: 0.3rem;
 }
 
 .skill {
-    display: inline-flex;
+    display: inline;
     border: 1px solid var(--color-foreground);
-    border-radius: 10px;
+    border-radius: 7px;
     padding: 0.2rem 0.5rem;
     font-size: var(--fs-small);
     margin: 0.5rem 0.2rem 0.5rem 0rem;

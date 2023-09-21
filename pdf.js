@@ -1,44 +1,35 @@
-
-
 const download_pdf_button = document.getElementById("download_button_id")
+let loaded_scripts = []
 
-let html2pdf_script = null
-
-function load_html2pdf() {
-    if (html2pdf_script) {
-        return Promise.resolve(html2pdf_script)
+function load_script(url) {
+    if (loaded_scripts.includes(url)) {
+        return Promise.resolve()
     } else {
         return new Promise(function(resolve, reject) {
-            const url = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
             const script = document.createElement("script")
             script.setAttribute("src", url)
             script.addEventListener("load", resolve)
             script.addEventListener("error", reject)
             document.body.appendChild(script)
-            html2pdf_script = script
+            loaded_scripts.push(url)
         })
     }
 }
 
-
-
-
 download_pdf_button.addEventListener("click", async function() {
-    console.log("Loading html2pdf")
-    await load_html2pdf()
-    console.log("Loaded html2pdf")
+    console.log("Loading elements of interest")
+    elements_to_render = document.getElementById("html_body_id")
 
+    console.log("Loading scripts")
     // https://ekoopmans.github.io/html2pdf.js/
+    await load_script("https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js")
+
     console.log("Generating pdf")
-    const elementHTML = document.getElementById("html_body_id")
     const options = {
+        html2canvas: {dpi: 92},
         pagebreak: {mode: 'avoid-all'},
         filename: "Resume_Luuk_Perdaems.pdf",
-		html2canvas:  {
-			scale: 2,
-			windowWidth: 1200
-		}
     }
-    html2pdf().set(options).from(elementHTML).save()
+    html2pdf().set(options).from(elements_to_render).save()
     console.log("Done generating pdf")
 })
